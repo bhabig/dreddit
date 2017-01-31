@@ -1,0 +1,5 @@
+<% @users.each do |u| %>
+  <p>Username: <%= u.name %></p>
+  <p>Email: <%= u.email %></p>
+  <p>Member Since: <%= u.created_at.strftime("%B %w, %Y") %></p>
+<% end %>
