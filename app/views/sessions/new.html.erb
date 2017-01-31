@@ -1,0 +1,10 @@
+<h2>Sign Into Reddit:</h2>
+<%= form_for @user, url: {controller: "sessions", action: "create"} do |f| %>
+  <%= f.label "Username:" %>
+  <%= f.text_field :name %>
+  </br>
+  <%= f.label "Password:" %>
+  <%= f.password_field :password %>
+  </br>
+  <%= f.submit "Sign In" %>
+<% end %>
