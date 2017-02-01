@@ -29,7 +29,7 @@ class UsersController < ApplicationController
   end
 
   def update
-    eligible = @user.password_control(user_params)
+    eligible = @user.update_control(user_params)
     if eligible == true
       @user.save
       redirect_to user_path(@user)
