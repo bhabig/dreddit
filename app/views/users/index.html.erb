@@ -1,5 +1,9 @@
-<% @users.each do |u| %>
-  <p>Username: <%= u.name %></p>
-  <p>Email: <%= u.email %></p>
-  <p>Member Since: <%= u.created_at.strftime("%B %w, %Y") %></p>
+<% if !@users.empty? %>
+  <% @users.each do |u| %>
+    <p>Username: <%= u.name %></p>
+    <p>Email: <%= u.email %></p>
+    <p>Member Since: <%= u.created_at.strftime("%B %w, %Y") %></p>
+  <% end %>
+<% else %>
+  <h2>We're so dreadful all of our users left us...</h2>
 <% end %>
