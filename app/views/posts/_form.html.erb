@@ -1,5 +1,40 @@
 <!-- nest tag form -->
 <%= form_for @post do |f| %>
-  <%= f.label "Title:" %>
-  <%= f.text_field :title %>
+  <% if @post.errors.any? %>
+    <div id="error_explanation">
+      <ul>
+        <% @post.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <h1><%= current_user.name %>, Create your post below</h1>
+  <%= f.hidden_field :user_id, value: current_user.id %>
+
+  <strong><%= f.label "Title:" %></strong>
+  <%= f.text_field :title, placeholder: "title..." %>
+</br>
+  <strong><%= f.label "Content:" %></strong>
+  <%= f.text_area :content, placeholder: "type post..." %>
+</br>
+  <h2><strong><%= f.label "Select or create up to 3 tags:" %></strong></h2><br>
+
+  <strong>Choose Existing Tags:</strong> <%= f.collection_check_boxes :tag_ids, Tag.all, :id, :name %><br></br>
+
+  <strong>OR Create new tags:</strong>
+   <%= f.fields_for "tag[0]" do |t| %>
+    <p>Tag 1: <%= t.text_field :name, placeholder: "name" %></p>
+  <% end %>
+
+  <%= f.fields_for "tags[1]" do |t| %>
+    <p>Tag 2: <%= t.text_field :name, placeholder: "name" %></p>
+  <% end %>
+
+  <%= f.fields_for "tags[2]" do |t| %>
+    <p>Tag 3: <%= t.text_field :name, placeholder: "name" %></p>
+  <% end %>
+
+</br>
+  <%= f.submit %>
 <% end %>

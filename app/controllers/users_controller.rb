@@ -14,7 +14,8 @@ class UsersController < ApplicationController
     if password? && matching_password?
       @user = User.new(user_params)
       @user.name_uniformity
-      if @user.save
+      if @user.valid?
+        @user.save
         session[:user_id] = @user.id
         redirect_to user_path(@user)
       else
