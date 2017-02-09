@@ -27,10 +27,16 @@ class UsersController < ApplicationController
   end
 
   def show
-    @posts = current_user.posts
+    @user = User.find_by(id: params[:id])
+    @posts = @user.posts
   end
 
   def edit
+    if params[:id].to_i == current_user.id
+      render :edit
+    else
+      redirect_to :back, alert: "You can only edit your own account"
+    end
   end
 
   def update
@@ -44,9 +50,15 @@ class UsersController < ApplicationController
   end
 
   def destroy
-    @user = User.find_by(id: params[:id])
-    @user.destroy
-    redirect_to new_user_path
+    binding.pry
+    if params[:id].to_i == current_user.id
+      @user = User.find_by(id: params[:id])
+      @user.destroy
+      session.destroy
+      redirect_to new_user_path
+    else
+      redirect_to :back, alert: "You can only delete your own account"
+    end
   end
 
   private

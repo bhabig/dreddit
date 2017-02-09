@@ -22,7 +22,7 @@ class PostsController < ApplicationController
       @user = User.find_by(id: @post.user_id)
       render :show
     else
-      redirect_to back, alert: "could not find post"
+      redirect_to :back, alert: "could not find post"
     end
   end
 
@@ -30,7 +30,7 @@ class PostsController < ApplicationController
     if current_user.id == @post.user_id
       render :edit
     else
-      redirect_to back, alert: "you are not authorized to edit this post"
+      redirect_to :back, alert: "you are not authorized to edit this post"
     end
   end
 
@@ -44,7 +44,7 @@ class PostsController < ApplicationController
   end
 
   def destroy
-    if @post
+    if @post && @post.user_id == current_user.id
       @post.destroy
       redirect_to user_path(current_user)
     else

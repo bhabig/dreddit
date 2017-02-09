@@ -1,13 +1,13 @@
-| <%= link_to "Edit Account", edit_user_path(@user) %>
-| <%= link_to "Create Post", new_user_post_path(@user) %><br>
+| <%= link_to "Edit Account", edit_user_path(current_user) %>
+| <%= link_to "Create Post", new_user_post_path(current_user) %><br>
 <h1><%= @user.name %> is the worst member of our site. Hands down.</h1>
 <% if !@posts.empty? %>
   <p><strong>But we'll show you your posts anyway:</strong></p>
   <% @posts.each do |p| %>
     <ul>
       <li>
-        <%= p.title %>
-        <%= link_to "view full post", user_post_path(@user, p) %>
+        <strong><%= p.title %> || </strong>
+        (<%= link_to "view full post", user_post_path(@user, p) %>)
       </li><br>
     </ul>
   <% end %>

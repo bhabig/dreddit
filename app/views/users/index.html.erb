@@ -1,6 +1,6 @@
 <% if !@users.empty? %>
   <% @users.each do |u| %>
-    <p>Username: <%= u.name %><%= link_to "see their profile", user_path(u) %></p>
+    <p>Username: <%= u.name %> || (<%= link_to "see their profile", user_path(u) %>)</p>
     <p>Member Since: <%= u.created_at.strftime("%B %w, %Y") %></p>
   <% end %>
 <% else %>
