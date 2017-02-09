@@ -2,8 +2,9 @@ class User < ApplicationRecord
   has_many :posts
 
   has_secure_password
-  validates :name, presence: true, uniqueness: {case_sensitive: false}
-  validates :email, presence: true, uniqueness: {case_sensitive: false}
+
+  validates :name, presence: true, uniqueness: {case_sensitive: false}, allow_blank: false
+  validates :email, presence: true, uniqueness: {case_sensitive: false}, allow_blank: false
 
   def name_uniformity
     a = self.name.split(" ").map{|n| n.capitalize}
@@ -27,5 +28,5 @@ class User < ApplicationRecord
       return false
     end
   end
-  
+
 end

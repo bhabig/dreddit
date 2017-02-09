@@ -2,7 +2,8 @@ Rails.application.routes.draw do
   root 'welcome#hello'
   resources :sessions, only: [:new, :create, :destroy]
   resources :users
-  resources :posts do
-    resources :tags
+  resources :users do
+    resources :posts
   end
+  resources :tags
 end
