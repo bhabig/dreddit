@@ -1,2 +1,7 @@
 <h1>Awful post authored by <%= @post.user.name %>:</h1>
 <h2><%= @post.title %></h2>
+<p><%= @post.content %></p><br>
+<% if @post.user_id == current_user.id %>
+  <%= link_to "edit this post", edit_user_post_path(current_user, @post) %></br>
+  <%= link_to "delete this post", user_post_path(@user, @post), method: "delete" %>
+<% end %>

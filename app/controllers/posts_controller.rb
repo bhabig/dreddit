@@ -20,6 +20,10 @@ class PostsController < ApplicationController
   def show
     if @post
       @user = User.find_by(id: @post.user_id)
+      render :show
+    else
+      redirect_to back, alert: "could not find post"
+    end
   end
 
   def edit
