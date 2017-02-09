@@ -19,7 +19,11 @@
 </br>
   <h2><strong><%= f.label "Select or create your tags:" %></strong></h2><br> <!-- handle more than 3 with an alert in the create action -->
 
-  <strong>Choose Existing Tags:</strong> <%= f.collection_check_boxes :tag_ids, Tag.all[0...5], :id, :name %><br></br>
+  <strong>Existing Tags:</strong> <%= f.collection_check_boxes :tag_ids, Tag.all[0...5], :id, :name %><br>
+  <% if @user_created %>
+    <p><strong>Your Created Tags:</strong> <%= f.collection_check_boxes :tag_ids, @user_created, :id, :name %></p></br>
+  <% end %>
+  </br>
 
   <strong>Create new tags:</strong>
    <%= f.fields_for :tag_attributes do |t| %>

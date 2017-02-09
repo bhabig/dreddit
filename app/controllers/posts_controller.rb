@@ -19,7 +19,8 @@ class PostsController < ApplicationController
 
   def show
     if @post
-      @user = User.find_by(id: @post.user_id)
+      @profile = User.find_by(id: @post.user_id)
+      @tags = @post.tags
       render :show
     else
       redirect_to :back, alert: "could not find post"
@@ -28,6 +29,7 @@ class PostsController < ApplicationController
 
   def edit
     if current_user.id == @post.user_id
+      @user_created = @post.user_created_tags
       render :edit
     else
       redirect_to :back, alert: "you are not authorized to edit this post"
@@ -35,7 +37,7 @@ class PostsController < ApplicationController
   end
 
   def update
-    @post = Post.update(post_params)
+    @post.update(post_params)
     if @post.save
       redirect_to user_post_path(current_user, @post)
     else

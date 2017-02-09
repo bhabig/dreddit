@@ -3,4 +3,5 @@ class Tag < ApplicationRecord
   has_many :posts, through: :post_tags
 
   validates_presence_of :name, allow_blank: false
+  validates_uniqueness_of :name
 end

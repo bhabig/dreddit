@@ -29,4 +29,11 @@ class User < ApplicationRecord
     end
   end
 
+  def purge_posts
+    self.posts.each do |p|
+      p.purge_user_tags
+      p.destroy
+    end
+  end
+
 end

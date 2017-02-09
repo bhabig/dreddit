@@ -27,8 +27,8 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = User.find_by(id: params[:id])
-    @posts = @user.posts
+    @profile = User.find_by(id: params[:id])
+    @posts = @profile.posts
   end
 
   def edit
@@ -50,10 +50,10 @@ class UsersController < ApplicationController
   end
 
   def destroy
-    binding.pry
     if params[:id].to_i == current_user.id
-      @user = User.find_by(id: params[:id])
-      @user.destroy
+      @account = User.find_by(id: params[:id])
+      @account.purge_posts
+      @account.destroy
       session.destroy
       redirect_to new_user_path
     else
