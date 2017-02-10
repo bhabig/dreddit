@@ -1,3 +1,5 @@
 # README
 
-practice app for recipe project
+practice app rails review
+
+Luke's Notes:
