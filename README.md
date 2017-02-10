@@ -1,3 +1,4 @@
 # README
 
-practice app for recipe project
+for review by Luke.
+Notes:
