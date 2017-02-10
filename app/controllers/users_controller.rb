@@ -10,7 +10,7 @@ class UsersController < ApplicationController
     @user = User.new
   end
 
-  def create #review amusement park lab to move logic into model
+  def create #ugly and long, can pull some of this into the model.
     if password? && matching_password?
       @user = User.new(user_params)
       @user.name_uniformity
@@ -32,7 +32,7 @@ class UsersController < ApplicationController
   end
 
   def edit
-    if params[:id].to_i == current_user.id
+    if params[:id].to_i == current_user.id || current_user.admin?
       render :edit
     else
       redirect_to :back, alert: "You can only edit your own account"
@@ -50,7 +50,7 @@ class UsersController < ApplicationController
   end
 
   def destroy
-    if params[:id].to_i == current_user.id
+    if params[:id].to_i == current_user.id || current_user.admin?
       @account = User.find_by(id: params[:id])
       @account.purge_posts
       @account.destroy

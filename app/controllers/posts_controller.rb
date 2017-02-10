@@ -4,8 +4,12 @@ class PostsController < ApplicationController
   before_action :set_post, only: [:show, :edit, :update, :destroy]
 
   def new
-    @post = Post.new(user_id: current_user.id)
-    @counter = 0
+    if current_user
+      @post = Post.new(user_id: current_user.id)
+      @counter = 0
+    else
+      redirect_to :back, alert: "must be signed in"
+    end
   end
 
   def create
@@ -28,7 +32,7 @@ class PostsController < ApplicationController
   end
 
   def edit
-    if current_user.id == @post.user_id
+    if current_user.id == @post.user_id || current_user.admin?
       @user_created = @post.user_created_tags
       render :edit
     else
@@ -46,7 +50,7 @@ class PostsController < ApplicationController
   end
 
   def destroy
-    if @post && @post.user_id == current_user.id
+    if @post && @post.user_id == current_user.id || current_user.admin?
       @post.destroy
       redirect_to user_path(current_user)
     else

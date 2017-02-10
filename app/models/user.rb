@@ -6,6 +6,10 @@ class User < ApplicationRecord
   validates :name, presence: true, uniqueness: {case_sensitive: false}, allow_blank: false
   validates :email, presence: true, uniqueness: {case_sensitive: false}, allow_blank: false
 
+  def admin?
+    !!self.admin == true
+  end
+
   def name_uniformity
     a = self.name.split(" ").map{|n| n.capitalize}
     self.name = a.join(" ")
